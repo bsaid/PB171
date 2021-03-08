@@ -1,0 +1,201 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{tcolorbox}
+\usepackage{siunitx}
+\usepackage{framed}
+\usepackage{courier}
+\usepackage{enumitem}
+
+\begin{document}
+
+\begin{center}
+	\Large PB171 -- Semestral task description (spring 2021)
+\end{center}
+
+The semestral task is the only mandatory requirement to pass this subject. The task consists of two parts. The first part contains several schematics of the hardware you have to design. The second part is about implementation of API (application programming interface) for the selected peripherals.
+
+\section{General information}
+\begin{itemize}
+	\item The task will be submitted as one ZIP archive to the corresponding folder at IS MU. If you use a repository, you can simply compress and upload the whole repository. The link to the folder at IS MU:
+	
+	\url{https://is.muni.cz/auth/el/fi/jaro2021/PB171/ode/111395642/}
+	
+	\item I recommend to use a repository during the semester and share the temporary results with me. We can avoid fatal mistakes and I have a feedback from you during the whole course.
+	
+	\item If I find any fatal mistake in the final submission, I will return it to you for a correction.
+	
+	\item After successful submission I will ask you for a defense as an online meeting. This defense must be completed before the end of the examination period. You will receive your mark immediately after your defense.
+\end{itemize}
+
+\section{Hardware part}
+Please submit your electrical schematics as a PDF document. The PDF should contain images of all your schematics and every image should be commented about what is inside each schematics and why.
+
+\subsection{Abbreviations}
+\begin{itemize}
+	\item \textbf{CPU} -- Your selected microcontroller approved by me. If you work with the PCB from the faculty, you should use \texttt{PIC18F44K22}.
+	\item \textbf{LED} -- Light-Emitting Diode
+	\item \textbf{IO pin} -- Input/output pin
+	\item \textbf{GPIO pin} -- General purpose input/output pin
+	\item \textbf{AD converter} -- Analog to digital converter
+	\item \textbf{DA converter} -- Digital to analog converter
+	\item \textbf{RGB LED} -- LED with red, green and blue channel
+	\item \textbf{PWM} -- Pulse Width Modulation
+	\item \textbf{UART} -- Universal asynchronous receiver-transmitter (specific peripheral of the CPU)
+	\item \textbf{I2C} -- Inter-Integrated Circuit or Two Wire Interface (specific peripheral of the CPU)
+	\item \textbf{SPI} -- Serial Peripheral Interface (specific peripheral of the CPU)
+	\item \textbf{3S Li-Ion battery} -- Li-Ion battery consists of three cells connected serially
+\end{itemize}
+
+\subsection{Basic schematics}
+
+\begin{enumerate}
+	\item Draw schematics of the circuit with one LED driven by the CPU. The power supply is \SI{5}{V}. Please specify a link to the datasheet of the used LED and the used CPU.
+	
+	\item Draw schematics of the circuit with one switch and one button connected to the CPU as two input devices connected to two separate pins.
+	
+	\item Draw schematics of the circuit with one button and one LED connected to any IO pin on the CPU. If the IO pin is set as output, the LED is driven by the CPU. If the IO pin is set as input, the CPU is able to read the state of the button and the LED indicates the state of the button, too.
+	
+	\item Draw full schematics of the circuit with one LED driven by the CPU, one button connected as an input device to the CPU, power supply within the range \SI{7}{V}-\SI{12}{V}, and all the passive components required by the CPU manufacturer.
+	
+	\item Draw schematics of the circuit with one potentiometer connected as an analog input to the CPU. The CPU usually has several AD converters, you can use any of them.
+	
+	\item Draw schematics of a thermistor connected to any AD converter on the CPU. The CPU should be able to measure the temperature of the thermistor. Please specify a link to the selected thermistor.
+	
+	\item Draw schematics of the circuit with power input \SI{7}{V}-\SI{12}{V} and one CPU. The CPU is able to measure the input voltage on its AD converter input. Please note that the CPU runs at lower voltage than the power supply and the AD converter cannot handle 12V directly. Please specify a link to the datasheet of every used component.
+	
+	\item Draw schematics of the circuit with one RGB LED driven by the CPU. The CPU is able to set the brightness of every channel by PWM.
+\end{enumerate}
+	
+\subsection{Schematics with high power consumption}
+
+\begin{enumerate}[resume]
+	\item Imagine that you just bought this servomotor:
+	
+	{\scriptsize	\url{https://hobbyking.com/en_us/turnigytm-tgy-50090m-analog-servo-mg-1-6kg-0-08sec-9g.html}}
+	
+	You want to test the communication between the servo and your CPU. Draw a connection circuit between the servo and the CPU.
+	
+	\item Imagine that we are building a small walking robot with 6 legs. Each leg needs 3 servos. You can find an example in this video:
+	
+	\url{https://youtu.be/ull5TyOnoFo}
+	
+	Draw full schematics of the circuit with one 3S Li-Ion battery (or two batteries if needed), one CPU and 18 servos. You do not have to draw all the 18 servos, the most important part is how you solve the power supply.
+	
+	\item Imagine that you just bought this DC motor:
+	
+	{\scriptsize\url{https://www.tme.eu/cz/en/details/sf-rob-11696/dc-motors/sparkfun-electronics-inc/rob-11696/}}
+	
+	You want to control it by CPU using PWM. Draw schematics of a connection between the CPU and the motor.
+	
+	\item Change the previous schematics to allow to control the motor rotation in both directions.
+	
+	\item Imagine that you have this motor:
+	
+	{\scriptsize\url{https://hobbyking.com/en_us/turnigy-aerodrive-sk3-2826-980kv-brushless-outrunner-motor-1.html}}
+	
+	with this speed controller:
+	
+	{\scriptsize\url{https://hobbyking.com/en_us/blheli-s-20a.html}}
+	
+	Draw schematics of the connection between your CPU used as the PWM source for this speed controller connected to this motor. Include the battery and provide a link to a suitable one.
+\end{enumerate}
+
+\subsection{Schematics of the peripherals}
+	
+\begin{enumerate}[resume]
+	\item Draw schematics of this FTDI chip:
+	
+	{\footnotesize\url{http://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT232R.pdf}}
+	
+	connected to the PC via USB and to your CPU via UART.
+	
+	\item Imagine that you have this absolute orientation sensor:
+	
+	{\footnotesize\url{https://cz.mouser.com/datasheet/2/783/BST_BMX055_DS000-1509552.pdf}}
+	
+	Draw schematics of a connection between this sensor and your CPU using SPI interface.
+	
+	\item Change the previous schematics to I2C interface.
+	
+	\item Imagine that you have two CPUs. The distance between them is \SI{20}{meters}. Draw schematics of the UART connection between them.
+	
+	\item Draw schematics of a connection between an SD card and your CPU. You can select between SPI or SDIO interface.
+\end{enumerate}
+
+\section{Software part}
+The software API should be submitted as a full project with demo \texttt{setup()} and \texttt{loop()} functions. I have to be able to compile your solution and upload it to the real microcontroller.
+
+If you use the PCB from the faculty or if you use the remote connection to the server, you can find some basic information including a template for your work here:
+
+\url{https://github.com/bsaid/PB171}
+
+You will implement the selected part of the Arduino API for your CPU as shown in the example here:
+
+\url{https://github.com/bsaid/PB171/tree/main/ArduinoExamplePIC.X}
+
+Please implement the functions below. Their documentation is available here:
+
+\url{https://www.arduino.cc/reference/en/}
+
+\subsection{Platform independent functions}
+\begin{itemize}
+	\item \texttt{bit()}
+	\item \texttt{bitClear()}
+	\item \texttt{bitRead()}
+	\item \texttt{bitSet()}
+	\item \texttt{bitWrite()}
+	\item \texttt{highByte()}
+	\item \texttt{lowByte()}
+\end{itemize}
+
+\subsection{Basic functions}
+\begin{itemize}
+	\item \texttt{pinMode()}
+	\item \texttt{digitalWrite()}
+	\item \texttt{digitalRead()}
+	\item \texttt{analogRead()}
+	\item \texttt{analogWrite()}
+	\item \texttt{delay()}
+	\item \texttt{delayMicroseconds()}
+	\item \texttt{millis()}
+	\item \texttt{micros()}
+\end{itemize}
+
+\subsection{Class for communication with UART interface}
+Please follow the documentation here:
+
+{\footnotesize\url{https://www.arduino.cc/reference/en/language/functions/communication/serial/}}
+
+\begin{itemize}
+	\item \texttt{available()}
+	\item \texttt{availableForWrite()}
+	\item \texttt{begin()}
+	\item \texttt{end()}
+	\item \texttt{flush()}
+	\item \texttt{parseInt()}
+	\item \texttt{peek()}
+	\item \texttt{print()}
+	\item \texttt{println()}
+	\item \texttt{read()}
+	\item \texttt{readBytes()}
+	\item \texttt{write()}
+\end{itemize}
+
+\subsection{Advanced peripherals}
+Please select one of the following classes (ideally everybody different one) and implement it:
+
+\begin{itemize}
+	\item \url{https://www.arduino.cc/en/Reference/EEPROM}
+	\item \url{https://www.arduino.cc/reference/en/libraries/servo/}
+	\item Design your own API to control the onboard display. You can find your inspiration, for example, here: \url{https://www.arduino.cc/en/Reference/LiquidCrystal}
+	\item \url{https://playground.arduino.cc/Code/StopWatchClass/}
+\end{itemize}
+
+\end{document}
